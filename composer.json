@@ -1,0 +1,28 @@
+{
+	"name": "cent4auka/rtimage",
+	"description": "Resize tool image",
+	"keywords": [
+		"resize",
+		"tool",
+		"image",
+		"library"
+	],
+	"homepage": "https://github.com/cent4auka/rtimage",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Leonid Gushchin",
+			"email": "mrx2004ster@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"ext-gd": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"ResizeTool\\": "src/"
+		}
+	}
+}
