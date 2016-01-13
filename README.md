@@ -27,7 +27,7 @@ composer require "cent4auka/rtimage:~1.0"
 ```
 
 Usage
-_____
+-----
 
 ```php
 $image = new \ResizeTool\Image($filePath);
@@ -43,7 +43,7 @@ $image->resize(100, 100)
 ```
 
 Methods
-_______
+-------
 
 ```php
 $image = new \ResizeTool\Image($filePath);
