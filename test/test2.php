@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $in = __DIR__ . '/in/test2.jpg';
-$out = __DIR__ . '/out/test2.jpg';
+$out = __DIR__ . '/out/test/2.jpg';
 
 (new \ResizeTool\Image($in))
 	->crop(400, 0, 300, 300)

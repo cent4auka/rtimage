@@ -208,7 +208,7 @@ class Image
 	{
 		$path = dirname($path);
 		if (!file_exists($path)) {
-			if (!mkdir($path, $mode)) {
+			if (!mkdir($path, $mode, true)) {
 				throw new Exception\DirectoryNotSavedException($path);
 			}
 		}

@@ -6,7 +6,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $in = __DIR__ . '/in/test1.jpg';
-$out = __DIR__ . '/out/test3.jpg';
+$out = __DIR__ . '/out/test/3.jpg';
 
 (new \ResizeTool\Image($in))
 	->resize(0, 300)
