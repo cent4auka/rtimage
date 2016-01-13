@@ -14,9 +14,21 @@ class Image
 {
 
 	protected
+		/**
+		 * @var string
+		 */
 		$_path,
+		/**
+		 * @var string e.g "image/jpeg"
+		 */
 		$_mime,
+		/**
+		 * @var int
+		 */
 		$_width,
+		/**
+		 * @var int
+		 */
 		$_height;
 
 	/**
@@ -48,6 +60,31 @@ class Image
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getMime()
+	{
+		return $this->_mime;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getWidth()
+	{
+		return $this->_width;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getHeight()
+	{
+		return $this->_height;
+	}
+
+	/**
+	 * Resize image and return $this
 	 * @param int $width
 	 * @param int $height
 	 * @return static
@@ -85,7 +122,7 @@ class Image
 	}
 
 	/**
-	 * Set background color
+	 * Set background color of image and return $this
 	 * @param int $color
 	 * @return static
 	 */
@@ -97,6 +134,7 @@ class Image
 	}
 
 	/**
+	 * Crop center part of image and return $this
 	 * @param int $width
 	 * @param int $height
 	 * @return static
@@ -109,7 +147,7 @@ class Image
 	}
 
 	/**
-	 * Crop image
+	 * Crop image and return $this
 	 * @param $x
 	 * @param $y
 	 * @param int $width
@@ -139,31 +177,38 @@ class Image
 	}
 
 	/**
+	 * Save image into $path and return $this
 	 * @param $path
+	 * @param int $fileMode
+	 * @param int $dirMode
 	 * @return static
+	 * @throws Exception\DirectoryNotSavedException
 	 * @throws Exception\FileNotSavedException
 	 */
-	public function save($path)
+	public function save($path, $fileMode = 0644, $dirMode = 0755)
 	{
-		$this->checkPath($path);
+		$this->checkPath($path, $dirMode);
 		if (!imagejpeg($this->_resource, $path, 85)) {
 			throw new Exception\FileNotSavedException("Cant save image to {$path}");
 		}
+
+		chmod($path, $fileMode);
 
 		return $this;
 	}
 
 	/**
-	 * check file dir existing and create it
+	 * Check file dir existing and create it
 	 *
 	 * @param $path
+	 * @param int $mode
 	 * @throws Exception\DirectoryNotSavedException
 	 */
-	public function checkPath($path)
+	protected function checkPath($path, $mode = 0755)
 	{
 		$path = dirname($path);
 		if (!file_exists($path)) {
-			if (!mkdir($path, 0775)) { // @todo: change file permissions to optional
+			if (!mkdir($path, $mode)) {
 				throw new Exception\DirectoryNotSavedException($path);
 			}
 		}
