@@ -49,10 +49,10 @@ Methods
 $image = new \ResizeTool\Image($filePath);
 
 // methods of image:
+$image->setBackgroudColor(0xFFFFFF)
 $image->resize(100, 100);
 $image->crop(400, 0, 300, 300)
 $image->cropCenter(300, 300)
-$image->fillBackgroud(0xFFFFFF)
 
 $image->save();
 

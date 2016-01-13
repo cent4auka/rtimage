@@ -15,6 +15,10 @@ class Image
 
 	protected
 		/**
+		 * @var resource
+		 */
+		$_resource,
+		/**
 		 * @var string
 		 */
 		$_path,
@@ -29,7 +33,11 @@ class Image
 		/**
 		 * @var int
 		 */
-		$_height;
+		$_height,
+		/**
+		 * @var int
+		 */
+		$_backgroundColor = 0xFFFFFF;
 
 	/**
 	 * Create new image object
@@ -126,9 +134,9 @@ class Image
 	 * @param int $color
 	 * @return static
 	 */
-	public function fillBackgroud($color = 0xFFFFFF)
+	public function setBackgroudColor($color = 0xFFFFFF)
 	{
-		imagefill($this->_resource, 0, 0, $color);
+		$this->_backgroundColor = $color;
 
 		return $this;
 	}
@@ -164,13 +172,30 @@ class Image
 		$newResource = imagecreatetruecolor($width, $height);
 		imagealphablending($newResource, false);
 		imagesavealpha($newResource, true);
-		imagecopyresampled($newResource, $this->_resource, 0, 0, $x, $y,
-			$width, $height, $width, $height);
+		imagefill($newResource, 0, 0, $this->_backgroundColor);
+
+		if ($x >= 0) {
+			$dst_x = 0;
+			$src_x = $x;
+		} else {
+			$dst_x = -$x;
+			$src_x = 0;
+		}
+		if ($y >= 0) {
+			$dst_y = 0;
+			$src_y = $y;
+		} else {
+			$dst_y = -$y;
+			$src_y = 0;
+		}
+		$dst_w = $src_w = (int)(min($width, $this->_width));
+		$dst_h = $src_h = (int)(min($height, $this->_height));
+
+		imagecopyresampled($newResource, $this->_resource, $dst_x, $dst_y, $src_x, $src_y,
+			$dst_w, $dst_h, $src_w, $src_h);
 
 		$this->_width = $width;
 		$this->_height = $height;
-		$this->_resource = $newResource;
-
 		$this->_resource = $newResource;
 
 		return $this;
