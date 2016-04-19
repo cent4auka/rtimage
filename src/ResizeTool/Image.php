@@ -206,14 +206,15 @@ class Image
 	 * @param $path
 	 * @param int $fileMode
 	 * @param int $dirMode
+	 * @param int $quality
 	 * @return static
 	 * @throws Exception\DirectoryNotSavedException
 	 * @throws Exception\FileNotSavedException
 	 */
-	public function save($path, $fileMode = 0644, $dirMode = 0755)
+	public function save($path, $fileMode = 0644, $dirMode = 0755, $quality = 95)
 	{
 		$this->checkPath($path, $dirMode);
-		if (!imagejpeg($this->_resource, $path, 85)) {
+		if (!imagejpeg($this->_resource, $path, $quality)) {
 			throw new Exception\FileNotSavedException("Cant save image to {$path}");
 		}
 
